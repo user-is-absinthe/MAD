@@ -1,0 +1,15 @@
+easy git & gihub
+	create github repo
+	goto project dir
+
+	echo "# MAD" >> README.md
+	git init - initialize dir to local rep
+	git add README.md - add file to local rep
+	git commit -m "first commit" - commit
+	git remote add origin https://github.com/user-is-absinthe/%NAME%.git - add local rep
+	git push -u origin master - push TO github
+
+
+	git pull - load FROM github
+
+	git status - status files from local rep
