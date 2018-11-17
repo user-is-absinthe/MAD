@@ -5,6 +5,8 @@ easy git & gihub
 	echo "# MAD" >> README.md
 	git init - initialize dir to local rep
 	git add README.md - add file to local rep
+    git add -A - add all files to git
+    git add --all
 	git commit -m "first commit" - commit
 	git remote add origin https://github.com/user-is-absinthe/%NAME%.git - add local rep
 	git push -u origin master - push TO github
