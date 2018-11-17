@@ -27,10 +27,19 @@ good_hrspwr = [];
 good_weight = [];
 
 for i = 1 : length(Horsepower)
-   if or(not(isnan(Horsepower(i))), not(isnan(Weight(i))))
+   if and(not(isnan(Horsepower(i))), not(isnan(Weight(i))))
        good_hrspwr = [good_hrspwr, Horsepower(i)];
        good_weight = [good_weight, Weight(i)];
    end
 end
 
-plot()
+plot(good_weight, good_hrspwr, '.');
+lsline;
+
+rhohat = corr(good_weight, good_hrspwr);
+
+rhos1000 = bootstrp(1000, 'corr', good_weight, good_hrspwr);
+
+hist(rhos1000,30);
+set(get(gca,'Children'),'FaceColor',[.8 .8 1])
+
