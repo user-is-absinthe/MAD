@@ -1,33 +1,33 @@
-% param1 - первая характеристика для анализа зависимости;
-% param2 - вторая характеристика для анализа зависимости;
-% n - мощность бутстреп выборки;
+% param1 - РЕТЧБС ИБТБЛФЕТЙУФЙЛБ ДМС БОБМЙЪБ ЪБЧЙУЙНПУФЙ;
+% param2 - ЧФПТБС ИБТБЛФЕТЙУФЙЛБ ДМС БОБМЙЪБ ЪБЧЙУЙНПУФЙ;
+% n - НПЭОПУФШ ВХФУФТЕР ЧЩВПТЛЙ;
 param1 = Displacement;
 param2 = Acceleration;
 n = 100;
-% Построение графика зависимости:
+% рПУФТПЕОЙЕ ЗТБЖЙЛБ ЪБЧЙУЙНПУФЙ:
 figure(1)
 plot(param1, param2, '+')
 lsline
 xlabel('Displacement')
 ylabel('Acceleration')
-% Вычисляем коэффициент корреляции:
+% чЩЮЙУМСЕН ЛПЬЖЖЙГЙЕОФ ЛПТТЕМСГЙЙ:
 rhohat = corr(param1, param2, 'rows', 'pairwise')
 
-% Построим бутстреп выборку:
+% рПУФТПЙН ВХФУФТЕР ЧЩВПТЛХ:
 rhos = bootstrp(n,@(x,y)corr(x,y,'rows', 'pairwise'),param1,param2);
 
-% Построим гистограмму бутстреп выборки:
+% рПУФТПЙН ЗЙУФПЗТБННХ ВХФУФТЕР ЧЩВПТЛЙ:
 figure(2)
 hist(rhos,25)
 set(get(gca, 'Children'), 'Facecolor', [.9 .9 1])
 
-% Построим доверительный интервал для оценки коэффициента корреляции 
-% с доверительной вероятностью 0,75:
+% рПУФТПЙН ДПЧЕТЙФЕМШОЩК ЙОФЕТЧБМ ДМС ПГЕОЛЙ ЛПЬЖЖЙГЙЕОФБ ЛПТТЕМСГЙЙ 
+% У ДПЧЕТЙФЕМШОПК ЧЕТПСФОПУФША 0,75:
 ci_normal = bootci(n, {@(x,y)corr(x,y,'rows', 'pairwise'),param1,param2}, 'alpha', 0.25, 'type' , 'normal')
 ci_per = bootci(n, {@(x,y)corr(x,y,'rows', 'pairwise'),param1,param2}, 'alpha', 0.25, 'type', 'per')
 ci_cper = bootci(n, {@(x,y)corr(x,y,'rows', 'pairwise'),param1,param2}, 'alpha', 0.25, 'type' , 'cper')
 
-% Укажем их на графике зависимости:
+% хЛБЦЕН ЙИ ОБ ЗТБЖЙЛЕ ЪБЧЙУЙНПУФЙ:
 figure(3)
 plot(param1, param2, '+')
 lsline
@@ -36,13 +36,13 @@ plot(x,ci_normal(1)*x)
 xlabel('Displacement')
 ylabel('Acceleration')
 
-% Подсчитаем выборочные моменты m2, m3,m4:
+% рПДУЮЙФБЕН ЧЩВПТПЮОЩЕ НПНЕОФЩ m2, m3,m4:
 m1 = moment(rhos,1)
 m2 = moment(rhos,2)
 m3 = moment(rhos,3)
 m4 = moment(rhos,4)
 
-% Подсчитаем коэффициент ассиметрии и коэффициент эксцесса:
+% рПДУЮЙФБЕН ЛПЬЖЖЙГЙЕОФ БУУЙНЕФТЙЙ Й ЛПЬЖЖЙГЙЕОФ ЬЛУГЕУУБ:
 betta1 = (m3^2)/(m2^3)
 betta2 = m4/(m2^2)
 kappa = betta1*(betta2+3)^2/(4*(betta2-3*betta1-6)*(4*betta2-3*betta1))
@@ -50,7 +50,7 @@ kappa = betta1*(betta2+3)^2/(4*(betta2-3*betta1-6)*(4*betta2-3*betta1))
 mu1 = mean(rhos(:,1))
 var1 = std(rhos(:,1))
 
-% Наложим на диаграмму график нормального распределения:
+% оБМПЦЙН ОБ ДЙБЗТБННХ ЗТБЖЙЛ ОПТНБМШОПЗП ТБУРТЕДЕМЕОЙС:
 figure(4)
 hist(rhos,25);
 set(get(gca, 'Children'), 'Facecolor', [.9 .9 1]);
