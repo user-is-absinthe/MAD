@@ -4,7 +4,7 @@ load carbig;
 
 good_Acceleration = []; % первая характеристика
 good_Horsepower = []; % вторая характеристика
-n = 100; % размер бутстреп выборки;
+n = 1000; % размер бутстреп выборки; 100
 
 good = 0;
 for i = 1 : length(Horsepower)
@@ -29,7 +29,7 @@ ylabel('Horsepower')
 rhohat = corr(good_Acceleration, good_Horsepower, 'rows', 'pairwise');
 
 % Построим бутстреп выборку:
-rhos = bootstrp(n,@(x,y)corr(x,y,'rows', 'pairwise'),good_Acceleration,good_Horsepower);
+rhos = bootstrp(n,@(x,y)corr(x,y,'rows', 'pairwise'),good_Acceleration,good_Horsepower); % n = 500
 
 % Построим гистограмму бутстреп выборки:
 figure(2)
@@ -48,6 +48,7 @@ figure(3)
 plot(good_Acceleration, good_Horsepower, '+')
 lsline
 hold on
+x = (-0.66:0.0001:-0.46);
 plot(x,ci_normal(1)*x)
 xlabel('Acceleration')
 ylabel('Horsepower')
@@ -67,9 +68,11 @@ var1 = std(rhos(:,1));
 
 % Наложим на диаграмму график нормального распределения:
 figure(4)
-hist(rhos,25);
-set(get(gca, 'Children'), 'Facecolor', [.9 .9 1]);
-hold on;
-x = (-0.66:0.0001:-0.46);
-Y = normpdf(x,mu1,var1);
-plot(x,Y,'r');
+histfit(rhos, 25);
+% hist(rhos,25);
+% set(get(gca, 'Children'), 'Facecolor', [.9 .9 1]);
+% hold on;
+% x = (-0.76:0.0001:-0.617);
+% % Y = normpdf(x,mu1,var1);
+% Y = normpdf(x, 0, sqrt(1));
+% plot(x,Y,'r');
